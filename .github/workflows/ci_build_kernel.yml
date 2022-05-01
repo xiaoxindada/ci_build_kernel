@@ -40,12 +40,10 @@ jobs:
         run: |
           sudo apt-get install -y bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev
       
-      
       - name: Clone kernel repo
         run: |
           git clone --recurse-submodules ${{ github.event.inputs.KERNEL_URL }} $GITHUB_WORKSPACE/kernel_source
-          
-          
+
       - name: Clone Toolchain
         run: |
          git https://github.com/xiaocheng20/Toolchain.git $GITHUB_WORKSPACE/kernel_source/Toolchain
@@ -60,3 +58,24 @@ jobs:
           cd ..
           ls gcc4.9
         
+      - name: Build kernel
+        run: |
+          cd $GITHUB_WORKSPACE/kernel_source/
+          LOCALDIR=$(realpath .)
+          defconfig="vendor/${{ github.event.inputs.DEFCONFIG }}"
+          export ARCH=arm64
+          args="-j$(nproc --all) \
+          O=out \
+          ARCH=arm64 \
+          CC=$LOCALDIR/clang \
+          CLANG_TRIPLE=aarch64-linux-gnu- \
+          CROSS_COMPILE=$LOCALDIR/gcc4.9/bin/aarch64-linux-android- \
+          CROSS_COMPILE_ARM32=$LOCALDIR/gcc4.9_32/bin/arm-linux-gnueabi-"
+          make ${args} $defconfig
+          make ${args}
+          
+      - name: Package kernel
+        run: |
+          cd cd $GITHUB_WORKSPACE/kernel_source/
+          ls out/arch/arm64/boot/
+      
