@@ -12,7 +12,7 @@ on:
       DEFCONFIG:
         description: 'defconfig'
         required: true
-        default: 'flashlmdd_lao_com-perf_defconfig'
+        default: 'vendor/flashlmdd_lao_com-perf_defconfig'
 
 jobs:
   build:
@@ -31,10 +31,15 @@ jobs:
           sudo -E apt-get clean
           df -h
 
-      - uses: actions/setup-python@v3
+      - name: Setup Python2
+        uses: actions/setup-python@v3.1.2
+        with:
+          python-version: '2.7'
+
+      - name: Setup Python3
+        uses: actions/setup-python@v3.1.2
         with:
           python-version: '3.8'
-          architecture: 'x64'
 
       - name: Setup environment
         run: |
@@ -65,7 +70,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/kernel_source/
           LOCALDIR=$(realpath .)
-          defconfig="vendor/${{ github.event.inputs.DEFCONFIG }}"
+          defconfig=${{ github.event.inputs.DEFCONFIG }}
           export ARCH=arm64
           args="-j$(nproc --all) \
           O=out \
