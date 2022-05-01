@@ -72,7 +72,7 @@ jobs:
           LOCALDIR=$(realpath .)
           defconfig=${{ github.event.inputs.DEFCONFIG }}
           export ARCH=arm64
-          args="-j$(nproc --all) \
+          args="\
           O=out \
           ARCH=arm64 \
           CC=$LOCALDIR/clang/bin/clang \
