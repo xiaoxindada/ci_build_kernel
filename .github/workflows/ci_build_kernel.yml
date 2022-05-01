@@ -23,12 +23,12 @@ jobs:
 
       - uses: actions/setup-python@v3
         with:
-          python-version: '3.x'
+          python-version: '3.8'
           architecture: 'x64'
 
       - name: test
         run: |
           python_ver=$(python --version | head -n 1)
           echo "$python_ver"
-          ehco ${{ github.event.inputs.KERNEL_URL }}
+          echo ${{ github.event.inputs.KERNEL_URL }}
           echo ${{ github.event.inputs.DEFCONFIG }}
