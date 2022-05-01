@@ -84,6 +84,6 @@ jobs:
           
       - name: Package kernel
         run: |
-          cd cd $GITHUB_WORKSPACE/kernel_source/
+          cd $GITHUB_WORKSPACE/kernel_source/
           ls out/arch/arm64/boot/
       
