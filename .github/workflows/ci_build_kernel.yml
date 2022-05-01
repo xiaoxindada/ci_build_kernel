@@ -46,7 +46,7 @@ jobs:
 
       - name: Clone Toolchain
         run: |
-         git https://github.com/xiaocheng20/Toolchain.git $GITHUB_WORKSPACE/kernel_source/Toolchain
+         git clone --recurse-submodules https://github.com/xiaocheng20/Toolchain.git $GITHUB_WORKSPACE/kernel_source/Toolchain
          
       - name: Setup Toolchain
         run: |
