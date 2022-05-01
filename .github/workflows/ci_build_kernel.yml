@@ -50,7 +50,7 @@ jobs:
         run: |
          git https://github.com/xiaocheng20/Toolchain.git $GITHUB_WORKSPACE/kernel_source/Toolchain
          
-      - name: Clone Toolchain
+      - name: Setup Toolchain
         run: |
           cd $GITHUB_WORKSPACE/kernel_source/Toolchain
           ls
