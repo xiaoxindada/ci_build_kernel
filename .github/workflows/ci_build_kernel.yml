@@ -59,6 +59,7 @@ jobs:
           cp -af google_gcc/arm-linux-androideabi-4.9/* ../gcc4.9_32/
           cd ..
           ls | grep -E "clang|gcc4.9|gcc4.9_32"
+          chmod 777 -R clang gcc4.9 gcc4.9_32
         
       - name: Build kernel
         run: |
