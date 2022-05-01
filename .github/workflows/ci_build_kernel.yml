@@ -54,12 +54,12 @@ jobs:
           mkdir -p ../clang/
           mkdir -p ../gcc4.9/
           mkdir -p ../gcc4.9_32/
-          cp -af google_clang/* ../clang
+          cp -af google_clang/*/* ../clang/
           cp -af google_gcc/aarch64-linux-android-4.9/* ../gcc4.9/
           cp -af google_gcc/arm-linux-androideabi-4.9/* ../gcc4.9_32/
           cd ..
           ls | grep -E "clang|gcc4.9|gcc4.9_32"
-          chmod 777 -R clang gcc4.9 gcc4.9_32
+          chmod 777 -R clang/ gcc4.9/ gcc4.9_32/
         
       - name: Build kernel
         run: |
